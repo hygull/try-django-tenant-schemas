@@ -17,7 +17,10 @@ A repository containing the source of a multi-tenant app (django-tenant-schemas 
 
 ### Initial requirements 
 
-> pip install psycopg2 will throws error in MAC OS Mojave (in my case). Using version `2.7.3.2` works fine.
+**Note:** `pip install psycopg2` throws error in MAC OS Mojave (in my case), in your case 2 (it depends). Using version `psycopg2==2.7.3.2` works fine.
+
+
+Here is the list basic initial dependencies (You may find it in .gitignore file).
 
 ```python
 Django==2.2
