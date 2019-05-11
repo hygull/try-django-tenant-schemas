@@ -1,4 +1,4 @@
-# try_django_tenant_schemas
+# try-django-tenant-schemas
 A repository containing the source of a multi-tenant app (django-tenant-schemas is as a reference)
 
 ### Note
@@ -6,6 +6,14 @@ A repository containing the source of a multi-tenant app (django-tenant-schemas 
 + It is necessary to use a PostgreSQL database. django-tenant-schemas will ensure compatibility with the minimum required version of the latest Django release. At this time that is PostgreSQL 9.3, the minimum for Django 1.11. 
 
 + Refer [this](https://django-tenant-schemas.readthedocs.io/en/latest/use.html) for more info.
+
+### What I used for this?
+
+| Language/Framework/Platform | Version |
+| --- | --- |
+| Python | 3.6.7 |
+| Django | 2.2 |
+| OS | MAC OS Mojave 10.14.4 |
 
 ### Initial requirements 
 
@@ -20,7 +28,7 @@ sqlparse==0.3.0
 
 ### Steps 
 
-+ `(venv3.6.7.26apr) ➜  try_django_tenant_schemas git:(master) ✗ pip install django-tenant-schemas`
++ `(venv3.6.7.26apr) ➜  try-django-tenant-schemas git:(master) ✗ pip install django-tenant-schemas`
 
 
 + Make a change in settings.py like this.
@@ -945,3 +953,10 @@ Password (again):
 Superuser created successfully.
 (venv3.6.7.26apr)
 ```
+
+
+# References
+
+- [x] [https://django-tenant-schemas.readthedocs.io/en/latest/install.html](https://django-tenant-schemas.readthedocs.io/en/latest/install.html)
+
+- [x] [http://books.agiliq.com/projects/django-multi-tenant/en/latest/](http://books.agiliq.com/projects/django-multi-tenant/en/latest/) 
