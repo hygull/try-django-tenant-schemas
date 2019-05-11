@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Login</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+  <style type="text/css">
+    .form-control {
+      border: 1px solid green;
+      padding: 2px 8px;
+      height: 40px;
+      font-size: 25px
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3 col-xs-12">
+        <h3>Create a tenant</h3>
+        <hr>
+        <form action="#" onsubmit="return signup(event)">
+          <div class="form-group">
+            <label for="name">Full Name:</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter tenant name" name="name" value="test$258">
+          </div>
+
+          <div class="form-group">
+            <label for="schema_name">Tenant name (subdomain):</label>
+            <input type="text" class="form-control" id="schema_name" placeholder="tenantt1" name="schema_name" value="tenant1">
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" placeholder="Enter Password" name="password" value="Password@123  ">
+          </div>
+
+          <div class="checkbox">
+            <label><input type="checkbox" name="remember"> Remember me</label>
+          </div>
+          <button type="submit" class="btn btn-success btn-block">Submit</button>
+        </form>  
+      </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+  function signup(event) {
+      event.preventDefault();
+
+      let schema_name = $("#schema_name").val()
+      let name = $("#name").val()
+      let password = $("#password").val()
+
+      if(!(/^([a-z]{1})([a-z0-9]{4,9})$/g.test(scheme_name))) {
+          alert("Scheme name should only contain alphabets/numbers (max len 5 with alphabet at first position)")
+          return false
+      }
+      // alert("ok")
+      console.log(password, scheme_name, name)
+
+      $.ajax({
+         type: "POST",
+         url: "http://my-domain.com:8000/users/signup/",
+         headers: {
+            "Content-Type": "application/json"
+         },
+         crossDomain: true,
+         dataType: "json",
+         data: JSON.stringify({
+            schema_name,
+            name,
+            password
+         }),
+         success: (response, textStatus, jQxhr) => {
+
+            console.log(response, textStatus, jQxhr)
+            if(response.status == 200) {
+              let data = response.data
+
+              // url = `${data.scheme}://${data.tenant}.${data.domain}.${data.extension}`
+              // if(data.port) {
+              //   url += `:${data.port}`
+              // }
+              // // url += '/login/'
+
+              // console.log("Redirect to Url => " + url)
+              // location.href = url;
+              // console.log("OK")
+              alert(response.message);
+            } else {
+              // Something bad happened on server side
+              alert(response.message);
+            }
+         },
+         error: (jQxhr, textStatus, errorThrown) => {
+            console.log("Error", jQxhr, textStatus, errorThrown)
+            alert('' + `${errorThrown}`)
+         }
+      })
+      return true;
+  }
+</script>
+</body>
+</html>
+
+

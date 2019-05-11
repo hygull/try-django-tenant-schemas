@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Login</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+  <style type="text/css">
+    .form-control {
+      border: 1px solid green;
+      padding: 2px 8px;
+      height: 40px;
+      font-size: 25px
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3 col-xs-12">
+        <h3>Login</h3>
+        <hr>
+        <form action="#" onsubmit="return login(event)">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="tenant">Tenant:</label>
+            <input type="text" class="form-control" id="tenant" placeholder="Enter tenant name" name="name" value="tenant1">
+          </div>
+          <!-- <div class="form-group">
+            <label for="appln_id">APPLN ID:</label>
+            <input type="appln_id" class="form-control" id="appln_id" placeholder="Enter Appln Id" name="appln_id" value="TEST773">
+          </div> -->
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" placeholder="Enter Password" name="password" value="Password@123">
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" name="remember"> Remember me</label>
+          </div>
+          <button type="submit" class="btn btn-success btn-block">Submit</button>
+        </form>  
+      </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+  function login(event) {
+      event.preventDefault();
+
+      let password = $("#password").val()
+      let tenant = $("#tenant").val()
+      let csrfmiddlewaretoken = $("input[name='csrfmiddlewaretoken']").val()
+      // alert("ok")
+      console.log(password, tenant);
+      alert(csrfmiddlewaretoken)
+
+      $.ajax({
+         type: "POST",
+         url: "/users/login/",
+         headers: {
+            "Content-Type": "application/json",
+            "X-CSRFtoken": csrfmiddlewaretoken
+         },
+         crossDomain: true,
+         dataType: "json",
+         data: JSON.stringify({
+          tenant,
+          password
+         }),
+         success: (response, textStatus, jQxhr) => {
+            console.log(response, textStatus, jQxhr)
+            alert("success");
+            if(response.status == 200) {
+              let data = response.data;
+
+              url = `${data.scheme}://${data.tenant}.${data.domain}.${data.extension}`;
+              if(data.port) {
+                url += `:${data.port}`;
+              }
+
+              // url += '/login/'
+
+              console.log("Redirect to Url => " + url);
+              location.href = url;
+              console.log("OK");
+            } else {
+              alert("got");
+            }
+         },
+         error: (jQxhr, textStatus, errorThrown) => {
+            console.log("Error", jQxhr, textStatus, errorThrown);
+            alert('' + errorThrown);
+         }
+      })
+
+      return true;
+  }
+</script>
+</body>
+</html>
+
+

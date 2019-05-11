@@ -102,3 +102,4 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+ venv3.6.7.26apr

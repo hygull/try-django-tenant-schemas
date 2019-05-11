@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Users</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+          <div class="jumbotron">
+            <h1>All Users</h1>      
+            <p>Users of the tenant {{tenant_name}}</p>
+          </div>     
+
+
+          <div class="row">
+            {% for user in users %}
+            <div class="col-md-4 col-sm-6 col-md-12">
+                <div class="card" style="width:400px">
+                <img class="card-img-top" src="https://www.w3schools.com/bootstrap4/img_avatar5.png" alt="Card image" style="width:100%">
+                <div class="card-body">
+                  <h4 class="card-title" style="padding: 5px">{{user.name}}</h4>
+                  <p class="card-text" style="padding: 5px">Some example text some example text. John Doe is an architect and engineer</p>
+                  <a href="#" class="btn btn-primary" style="padding: 5px">See Profile</a>
+                </div>
+                </div>
+            </div>
+            {% endfor %}
+          </div>
+
+</div>
+</body>
+</html>
